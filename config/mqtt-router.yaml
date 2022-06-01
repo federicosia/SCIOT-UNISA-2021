@@ -1,0 +1,41 @@
+metadata:
+  name: mqtt-router
+  labels:
+    nuclio.io/project-name: 5360e852-fc19-4a5f-88bb-c875b4bec9c1
+spec:
+  handler: "main:handler"
+  runtime: nodejs
+  resources: {}
+  image: "nuclio/processor-mqtt-router:latest"
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPU: 75
+  triggers:
+    httpTrigger:
+      class: ""
+      kind: http
+      maxWorkers: 4
+      attributes:
+        port: 10300
+    mqttTrigger:
+      class: ""
+      kind: mqtt
+      url: "172.17.0.1:1883"
+      username: admin
+      password: admin
+      attributes:
+        subscriptions:
+          - qos: 1
+            topic: iot/logs
+  version: 1
+  build:
+    functionSourceCode: dmFyIE1vbmdvQ2xpZW50ID0gcmVxdWlyZSgibW9uZ29kYiIpLk1vbmdvQ2xpZW50Ow0KdmFyIG1xdHQgPSByZXF1aXJlKCJtcXR0IiksIHVybCA9IHJlcXVpcmUoInVybCIpOw0KdmFyIGpzb25Db25maWcgPSByZXF1aXJlKCIuLi9lbnYuanNvbiIpDQoNCnZhciBtcXR0X3VybCA9IHVybC5wYXJzZSgnbXF0dDovL2FkbWluOmFkbWluQDE3Mi4xNy4wLjE6MTg4MycpOw0KdmFyIGF1dGggPSAobXF0dF91cmwuYXV0aCB8fCAnOicpLnNwbGl0KCc6Jyk7DQp2YXIgdXJsID0gIm1xdHQ6Ly8iICsgbXF0dF91cmwuaG9zdDsNCg0KdmFyIG9wdGlvbnMgPSB7DQogICAgcG9ydDogbXF0dF91cmwucG9ydCwNCiAgICBjbGllbnRJZDogJ21xdHRqc18nICsgTWF0aC5yYW5kb20oKS50b1N0cmluZygxNikuc3Vic3RyKDIsIDgpLA0KICAgIHVzZXJuYW1lOiBhdXRoWzBdLA0KICAgIHBhc3N3b3JkOiBhdXRoWzFdDQp9Ow0KDQp2YXIgdXJpID0ganNvbkNvbmZpZy5tb25nb2RiX3VyaSANCnZhciB0aGkgPSAtMjU1DQoNCmZ1bmN0aW9uIGxvYWREYXRhVG9EQih0aGlfdmFsdWUpIHsNCiAgICBNb25nb0NsaWVudC5jb25uZWN0KHVyaSwgZnVuY3Rpb24oZXJyLCBkYil7DQogICAgICAgIGlmKGVycikgDQogICAgICAgICAgICB0aHJvdyBlcnI7DQogICAgICAgIHZhciB0aGlfY29sbGVjdGlvbiA9IGRiLmRiKCJzY2lvdCIpLmNvbGxlY3Rpb24oInRoaSIpOyANCiAgICAgICAgY29uc3QgZGF0ZSA9IG5ldyBEYXRlKCkNCiAgICAgICAgY29uc3QgZGF0ZVN0cmluZyA9IGRhdGUuZ2V0RGF0ZSgpICsgIi8iICsgKGRhdGUuZ2V0TW9udGgoKSArIDEpICsgIi8iICsgZGF0ZS5nZXRGdWxsWWVhcigpDQogICAgICAgIHZhciBvYmogPSB7ZGF0ZSA6IGRhdGVTdHJpbmcsIHRoaSA6IHRoaV92YWx1ZX07DQogICAgICAgIA0KICAgICAgICB0aGlfY29sbGVjdGlvbi5pbnNlcnRPbmUob2JqLCBmdW5jdGlvbihlcnIsIHJlcyl7DQogICAgICAgICAgICBpZihlcnIpDQogICAgICAgICAgICAgICAgdGhyb3cgZXJyOw0KICAgICAgICAgICAgZGIuY2xvc2UoKTsNCiAgICAgICAgfSk7DQogICAgfSk7DQp9DQoNCmV4cG9ydHMuaGFuZGxlciA9IGZ1bmN0aW9uKGNvbnRleHQsIGV2ZW50KSB7DQogICAgdmFyIGNsaWVudE1RVFQgPSBtcXR0LmNvbm5lY3QodXJsLCBvcHRpb25zKTsNCiAgICANCiAgICBjbGllbnRNUVRULm9uKCdjb25uZWN0JywgZnVuY3Rpb24oKSB7DQogICAgICAgIGNsaWVudE1RVFQuc3Vic2NyaWJlKCJpb3QvbG9ncyIpOw0KICAgIH0pDQogICAgDQogICAgY2xpZW50TVFUVC5vbignbWVzc2FnZScsIGZ1bmN0aW9uICh0b3BpYywgbWVzc2FnZSkgew0KICAgICAgICB0aGkgPSBtZXNzYWdlLnRvU3RyaW5nKCk7DQogICAgICAgIGlmKGV2ZW50LnRyaWdnZXIua2luZCAhPT0gImh0dHAiKQ0KICAgICAgICAgICAgbG9hZERhdGFUb0RCKHRoaSk7DQogICAgICAgIGNsaWVudE1RVFQuZW5kKCkNCiAgICAgICAgY29udGV4dC5jYWxsYmFjayhKU09OLnN0cmluZ2lmeSh0aGkpKQ0KICAgIH0pOw0KfQ==
+    baseImage: "node:14-alpine"
+    commands:
+      - 'npm install mqtt'
+      - 'npm install mongodb'
+    runtimeAttributes:
+      repositories: []
+    codeEntryType: sourceCode
+  platform: {}
+  readinessTimeoutSeconds: 60
