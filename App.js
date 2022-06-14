@@ -36,7 +36,7 @@ export default function App() {
 					}
 				}).catch(err => {console.log("ERRORE RESPONSE", err)})
 			}).catch(err => console.log("ERRORE FETCH", err))
-		}, 3000)
+		}, 10000)
 
 		return () => clearInterval(id)
 	}, [])
